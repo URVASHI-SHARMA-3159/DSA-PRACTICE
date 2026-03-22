@@ -1,0 +1,39 @@
+// OPTIMAL APPROACH :-
+// TIME COMPLEXCITY :- O(n)
+// SPACE COMPLEXCITY :- O(1)
+#include<iostream>
+#include<climits>
+using namespace std;
+long long subarraysum(int n,int arr[]){
+   long long maxi = LLONG_MIN, sum = 0,start=0;
+    long ans_start = -1 , ans_end = -1;
+    for(int i=0;i<n;i++){
+        if(sum==0){
+            start = i;
+        }
+        sum+=arr[i];
+        if(sum>maxi){
+        maxi = sum;
+        ans_start = start,ans_end = i;
+    }
+      
+      if(sum<0){
+        sum =  0;
+    }
+}
+      cout << "Start Index: " << ans_start << endl;
+    cout << "End Index: " << ans_end << endl;
+
+    return maxi;
+    }
+    int main(){
+    int n;
+    cin >> n;
+
+    int arr[n];
+    for(int i=0;i<n;i++){
+        cin >> arr[i];
+    }
+
+    cout << subarraysum(n,arr);
+}
