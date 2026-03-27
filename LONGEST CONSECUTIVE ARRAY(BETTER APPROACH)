@@ -1,0 +1,38 @@
+// BETTER APPROACH : -
+// TIME COMPLEXITY :- O(N LOG N)
+// SPACE COMPLEXITY :- O(1)
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<climits>
+using namespace std;
+int longestsuccessiveelement(vector<int>&arr){
+    if(arr.size()==0) return 0;
+    sort(arr.begin(),arr.end());
+    int longest = 1;
+    int cnt = 0, lastsmaller = INT_MIN;
+    for(int i=0;i<arr.size();i++){
+        if(arr[i]-1==lastsmaller){
+            cnt = cnt +1;
+            lastsmaller = arr[i];
+    }
+      else if(arr[i]!=lastsmaller){
+        cnt = 1;
+        lastsmaller = arr[i];
+      }
+      longest = max(longest,cnt);
+    }
+    return longest;
+}
+int main(){
+    int n;
+    cin>>n;
+    vector<int>arr(n);
+    for(int i=0;i<n;i++){
+        cin>>arr[i];
+    }
+    int re = longestsuccessiveelement(arr);
+    cout<<re<<" ";
+
+}
+
