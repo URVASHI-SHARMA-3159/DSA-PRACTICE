@@ -1,0 +1,69 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct TreeNode
+{
+    int data;
+    TreeNode *left;
+    TreeNode *right;
+    TreeNode(int val)
+    {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+class Traversal
+{
+public:
+    vector<vector<int>> ZigZag_Traversal(TreeNode *root)
+    {
+        vector<vector<int>> ans;
+        if (root == NULL)
+            return ans;
+        queue<TreeNode *> q;
+        q.push(root);
+        bool LeftToRight = true;
+        while (!q.empty())
+        {
+            int size = q.size();
+            vector<int> level;
+            for (int i = 0; i < size; i++)
+            {
+                TreeNode *node = q.front();
+                q.pop();
+                if (node->left != NULL)
+                    q.push(node->left);
+                if (node->right != NULL)
+                    q.push(node->right);
+                level.push_back(node->data);
+            }
+            if (!LeftToRight)
+            {
+                reverse(level.begin(), level.end());
+            }
+            ans.push_back(level);
+            LeftToRight = !LeftToRight;
+        }
+        return ans;
+    }
+};
+int main()
+{
+    TreeNode *node = new TreeNode(1);
+    TreeNode *root = new TreeNode(10);
+    root->left = new TreeNode(4);
+    root->right = new TreeNode(7);
+    root->left->left = new TreeNode(5);
+    root->left->right = new TreeNode(3);
+    Traversal t;
+    vector<vector<int>> result = t.ZigZag_Traversal(root);
+    for (auto level : result)
+    {
+        for (int x : level)
+        {
+            cout << x << " ";
+        }
+        cout << endl;
+    }
+    return 0;
+}
