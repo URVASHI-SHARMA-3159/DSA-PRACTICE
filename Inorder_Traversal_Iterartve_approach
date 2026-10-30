@@ -1,0 +1,53 @@
+Space Complexity = O(n)
+Time Complexity = O(n)
+
+#include<bits/stdc++.h>
+using namespace std;
+struct TreeNode {
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+
+    TreeNode(int val) {
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+class Traversal{
+    public:
+    vector<int> InorderTraversal(TreeNode* root){
+        stack<TreeNode*>  st;
+        TreeNode* node = root;
+        vector<int> ans;
+        while(true){
+            if(node != NULL){
+                st.push(node);
+                node = node->left;
+            }
+            else{
+                if(st.empty() == true) break;
+                node = st.top();
+                st.pop();
+                ans.push_back(node->data);
+                node = node->right;
+            }
+        }
+        return ans;
+    }
+};
+int main(){
+    TreeNode* node = new TreeNode(10);
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    Traversal t;
+    vector<int> res = t.InorderTraversal(root);
+    for(int x : res){
+        cout << x << " ";
+    }
+   return 0;
+}
