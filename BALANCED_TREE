@@ -1,0 +1,42 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct TreeNode{
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int val){
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+class Balanced{
+    public:
+    bool isBalancedTree(TreeNode* root){
+        return dfsHeight(root) != -1;
+    }
+    int dfsHeight(TreeNode* root){
+        if(root == NULL){
+            return 0;
+        }
+        int lh = dfsHeight(root->left);
+        if(lh == -1) return -1;
+        int rh = dfsHeight(root->right);
+        if(rh == -1) return -1;
+        if(abs(lh-rh) > 1) return -1;
+        return max(lh,rh) + 1;
+    }
+};
+int main(){
+    TreeNode* node = new TreeNode(10);
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    Balanced b;
+    int result = b.isBalancedTree(root);
+    cout << (result ? "Balanced Tree" : "Not Balanced");
+    return 0;
+}
