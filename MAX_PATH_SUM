@@ -1,0 +1,43 @@
+#include<bits/stdc++.h>
+using namespace std;
+struct TreeNode{
+    int data;
+    TreeNode* left;
+    TreeNode* right;
+    TreeNode(int val){
+        data = val;
+        left = NULL;
+        right = NULL;
+    }
+};
+class MaxPath{
+    public:
+    int maxpathsum(TreeNode* root){
+        int maxi = INT_MIN;
+        maxpathsumdown(root,maxi);
+        return maxi;
+    }
+  
+    int maxpathsumdown(TreeNode* root,int& maxi){
+        if(!root){
+            return 0;
+        }
+        int ls = max(0,maxpathsumdown(root->left,maxi));
+        int rs = max(0,maxpathsumdown(root->right,maxi));
+        maxi = max(maxi,ls+rs+root->data);
+        return max(ls,rs) + root->data;
+    }
+};
+int main(){
+    
+    TreeNode* root = new TreeNode(1);
+    root->left = new TreeNode(2);
+    root->right = new TreeNode(3);
+
+    root->left->left = new TreeNode(4);
+    root->left->right = new TreeNode(5);
+    MaxPath mp;
+    int result = mp.maxpathsum(root);
+    cout << "Max Path Sum of Binary Tree : " << result << " ";
+    return 0;
+}
